@@ -62,9 +62,39 @@ const selectCancel = document.querySelectorAll('#select-cancel')
 const selectAll = document.querySelectorAll('#select-all')
 const downloadBtn = document.querySelectorAll('#download-button')
 const checkbox = document.querySelectorAll('.checkbox')
+const galleryCounts = document.querySelectorAll('.gallery__about')
+const newarr = new Set()
+
+function checkHandler(element) {
+  let slectedItems = element
+    .closest('section')
+    .querySelector('.selected__items')
+  let checkedItems = [
+    ...element.closest('.gallery__main').querySelectorAll('.checkbox'),
+  ]
+  let itemsLength = 0
+  let itemsSize = 0
+
+  checkedItems.map((item) => {
+    if (item.checked) {
+      let image = item.previousElementSibling
+      console.log(image)
+      newarr.add(image)
+      itemsLength++
+      itemsSize += Number(
+        (image.naturalWidth * image.naturalHeight) / 8 / 1024 / 1024
+      )
+    } else {
+      newarr.delete(item.previousElementSibling)
+    }
+    slectedItems.children[0].innerHTML = `Selected ${itemsLength}  Items •`
+    slectedItems.children[1].innerHTML = `Size :  ${itemsSize.toFixed(2)}  MB `
+  })
+}
 
 checkbox.forEach((el) => {
   el.addEventListener('click', function (event) {
+    checkHandler(el)
     selectAllHandler(event)
   })
 })
@@ -89,6 +119,7 @@ function cancelSelectHandler(event) {
       elem.classList.contains('gallery__main-item')
     ) {
       elem.querySelector('.checkbox').checked = false
+      checkHandler(elem)
     }
   })
 }
@@ -104,8 +135,45 @@ function selectAllHandler(event) {
         elem.classList.contains('gallery__main-item')
       ) {
         elementCheck.checked = true
+        checkHandler(elem)
       }
     })
   } else {
   }
 }
+downloadBtn.forEach((item) => {
+  item.addEventListener('click', function () {
+    for (const item of newarr) {
+      let a = document.createElement('a')
+      a.href = item.src
+      a.download = item.id
+      a.click()
+    }
+    newarr.clear()
+    checkbox.forEach((item) => (item.checked = false))
+  })
+})
+
+galleryCounts.forEach((countItem) => {
+  let count = 0
+  let size = 0
+  let elem = [
+    ...countItem.closest('section').querySelector('.gallery__main').children,
+  ]
+
+  elem.forEach((item) => {
+    if (
+      item.matches('.floor-plan__item') ||
+      item.matches('.gallery__main-item')
+    ) {
+      let currentImg = item.querySelector('img')
+      size += Number(currentImg.naturalWidth * currentImg.naturalHeight)
+      count++
+
+      countItem.children[0].innerHTML = `Quantity: ${count}`
+      countItem.children[1].innerHTML = `Size: ${(size / 8 / 1024).toFixed(
+        2
+      )} MB`
+    }
+  })
+})

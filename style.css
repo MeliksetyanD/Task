@@ -846,7 +846,14 @@ footer h4 {
 /* slider */
 
 /* ======== Media Queries ========= */
+
 @media (max-width: 768px) {
+  .gallery__main-item {
+    margin: 0;
+    width: 180px;
+    height: 180px;
+    border: 3px solid #fff;
+  }
   /* header ================ */
   .header__menu {
     flex-direction: column;
@@ -859,6 +866,7 @@ footer h4 {
   /* ========main */
   main {
     flex-direction: column;
+    display: inherit;
   }
   .nav__wrapper {
     width: 100%;
@@ -883,8 +891,6 @@ footer h4 {
   .nav__sidebar-list__item-active {
     border-left: 3px solid #ffdb11;
   }
-
-  /* ========main */
 
   .footer__about,
   .footer__roadmap,
@@ -926,5 +932,97 @@ footer h4 {
   }
   .questions__item {
     width: 70%;
+  }
+}
+@media (max-width: 420px) {
+  .overlay img {
+    width: 150px !important;
+  }
+  .questions__item {
+    width: 80%;
+  }
+  /* ========main */
+  .footer__copyright p {
+    margin: 0 2px;
+  }
+  .footer__copyright {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .floor-plan__item img {
+    width: 250px;
+    height: 150px;
+  }
+  .download-btn::after {
+    display: none;
+  }
+  .matterport-video__main-item__about-buttons {
+    display: flex;
+  }
+  .copy__link-btn {
+    padding: 10px 40px;
+  }
+  .floor-plan-p {
+    margin: 0;
+  }
+  .yellow-btn,
+  .transparent-btn {
+    margin: 2px 1px;
+    padding: 10px;
+  }
+
+  section h3 {
+    font-size: 18px;
+  }
+  section p {
+    font-size: 11px;
+  }
+  .header__menu {
+    display: none;
+  }
+  .header__info {
+    margin: 0;
+    text-align: center;
+  }
+  .header__info-logo::after {
+    display: none;
+  }
+  header {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .property__website-devices {
+    width: 100%;
+  }
+  .property__website-main {
+    width: 100%;
+  }
+  .property__website-main__item-buttons {
+    justify-content: center;
+  }
+
+  .gallery__main-item {
+    width: 120px;
+    height: 120px;
+    border: 3px solid #fff;
+  }
+  .floor-plan-p {
+    width: inherit;
+  }
+  .gallery__title,
+  .gallery__about {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .instagram__info {
+    width: inherit;
+    text-align: left;
+  }
+  section p {
+    margin: 10px;
   }
 }
